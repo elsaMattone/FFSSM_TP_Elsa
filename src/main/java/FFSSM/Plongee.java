@@ -9,17 +9,17 @@ import java.util.Set;
 
 public class Plongee {
 
-	public static Site lieu;
+	public Site lieu;
 
-	public static Moniteur chefDePalanquee;
+	public Moniteur chefDePalanquee;
 
-	public static LocalDate date;
+	public LocalDate date;
 
-	public static int profondeur;
+	public int profondeur;
 
-	public static int duree;
+	public int duree;
         
-        private static Set<Plongeur> participantsPlongee = new HashSet<Plongeur>();
+        private Set<Plongeur> participantsPlongee = new HashSet<Plongeur>();
 
 	public Plongee(Site lieu, Moniteur chefDePalanquee, LocalDate date, int profondeur, int duree) {
 		this.lieu = lieu;
@@ -33,23 +33,23 @@ public class Plongee {
                 participantsPlongee.add(participant);
 	}
 
-	public static LocalDate getDate() {
+	public LocalDate getDate() {
 		return date;
 	}
 
-        public static Site getLieu() {
+        public Site getLieu() {
             return lieu;
         }
 
-        public static Moniteur getChefDePalanquee() {
+        public Moniteur getChefDePalanquee() {
             return chefDePalanquee;
         }
 
-        public static int getProfondeur() {
+        public int getProfondeur() {
             return profondeur;
         }
 
-        public static int getDuree() {
+        public int getDuree() {
             return duree;
         }
         
@@ -61,15 +61,13 @@ public class Plongee {
 	 * licence valide à la date de la plongée
 	 * @return vrai si la plongée est conforme
 	 */
-	public static boolean estConforme() {
-            boolean conforme = true;
-            while (conforme = true){
-                for (Plongeur participantsPlongee : participantsPlongee){
-                    if (Licence.estValide(date)!=true){
-                        conforme = false;
+	public boolean estConforme() {
+            boolean conforme = false;
+            for (Plongeur participantsPlongee : participantsPlongee){
+                if (participantsPlongee.getLicence().estValide(date)){
+                        conforme = true;
                     }
                 }
-            }
             return conforme;
 	}
 

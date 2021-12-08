@@ -10,7 +10,8 @@ import java.util.Optional;
 public class Moniteur extends Plongeur {
 
     public int numeroDiplome;
-    private List<Embauche> listeEmplois = new ArrayList<Embauche>();
+    public List<Embauche> listeEmplois = new ArrayList<Embauche>();
+    public LocalDate fin;
 
     public Moniteur(String numeroINSEE, String nom, String prenom, String adresse, String telephone, LocalDate naissance, int niveau, int numeroDiplome) {
         super(numeroINSEE, nom, prenom, adresse, telephone, naissance, niveau);
@@ -23,11 +24,12 @@ public class Moniteur extends Plongeur {
      * @return l'employeur actuel de ce moniteur sous la forme d'un Optional
      */
     public Optional<Club> employeurActuel() {
-        Embauche emploiActuel = listeEmplois.get(listeEmplois.size()-1);
-        if(emploiActuel.estTerminee()==true){
-            return Optional.empty();
+        Optional<Club> op1 = Optional.empty();
+        if (listeEmplois.size()==0) {
+        } else {
+            op1 = Optional.of(listeEmplois.get(listeEmplois.size()-1).getEmployeur());
         }
-        return Optional.ofNullable(emploiActuel.getEmployeur());
+        return op1;
     }
     
     /**
@@ -38,6 +40,11 @@ public class Moniteur extends Plongeur {
     public void nouvelleEmbauche(Club employeur, LocalDate debutNouvelle) {   
         Embauche embauche = new Embauche(debutNouvelle, this, employeur);
         listeEmplois.add(embauche);
+    }
+    
+    public void terminerEmbauche(LocalDate fin){
+        Embauche embauche = listeEmplois.get(listeEmplois.size()-1);
+        embauche.terminer(fin);
     }
 
     public List<Embauche> emplois() {

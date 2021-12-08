@@ -7,6 +7,7 @@ public class Plongeur extends Personne{
 	
     public int niveau;
     private List<Licence> licences = new ArrayList<Licence>();
+    private Licence l1;
 
     public Plongeur(String numeroINSEE, String nom, String prenom, String adresse, String telephone, LocalDate naissance, int niveau) {
         super(numeroINSEE, nom, prenom, adresse, telephone, naissance);
@@ -21,14 +22,18 @@ public class Plongeur extends Personne{
         this.niveau = niveau;
     }
     
-    public void ajouteLicence(String numero, LocalDate delivrance){
+    public void ajouteLicence(String numero, LocalDate delivrance, Club c){
         Plongeur plongeur = this;
-        Licence l = new Licence(plongeur, numero, delivrance, Licence.getClub());
+        Licence l = new Licence(plongeur, numero, delivrance, c);
         licences.add(l);
     }
     
     public Licence derniereLicence(){
         Licence licence = licences.get(licences.size()-1);
         return licence;
+    }
+    
+    public Licence getLicence(){
+        return l1;
     }
 }
